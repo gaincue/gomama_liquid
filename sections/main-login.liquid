@@ -19,7 +19,7 @@
 {%- endif -%}
 
 <script>
-  console.log({{ customer | json }});
+  console.log({{ customer.login_page | json }});
 </script>
 
 <div class="customer login section-{{ section.id }}-padding">
