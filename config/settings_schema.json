@@ -1465,5 +1465,17 @@
         "default": "scheme-1"
       }
     ]
+  },
+  {
+    "name": "API Settings",
+    "settings": [
+      {
+        "type": "text",
+        "id": "api_base_url",
+        "label": "API Base URL",
+        "default": "https://api.example.com",
+        "info": "Enter your API base URL (including https://)"
+      }
+    ]
   }
 ]

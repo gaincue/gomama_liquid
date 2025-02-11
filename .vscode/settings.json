@@ -11,5 +11,9 @@
     "editor.defaultFormatter": "Shopify.theme-check-vscode",
     "editor.formatOnSave": true
   },
-  "themeCheck.checkOnSave": true
+  "themeCheck.checkOnSave": true,
+  "[liquid-javascript]": {
+    "editor.defaultFormatter": "sissel.shopify-liquid",
+    "editor.formatOnSave": true
+  }
 }
