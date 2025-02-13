@@ -1,0 +1,422 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+
+<style>
+  #otpTimer {
+    color: #666;
+  }
+
+  .custom-notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    max-width: 300px;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease-in-out;
+  }
+
+  .custom-notification.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .custom-notification.success {
+    background-color: #4caf50;
+  }
+
+  .custom-notification.error {
+    background-color: #f44336;
+  }
+
+  .custom-notification.info {
+    background-color: #2196f3;
+  }
+</style>
+
+{% liquid
+  if form.errors
+    assign error_message = form.errors | default_errors | escape
+  endif
+%}
+
+<div class='customer login'>
+  <h1 id='login' tabindex='-1'>{{ 'customer.login_page.title' | t }}</h1>
+
+  <!-- Password Login Form -->
+  <div style='display: none'>
+    {%- form 'customer_login', novalidate: 'novalidate' -%}
+      <div class='field'>
+        <input
+          type='email'
+          name='customer[email]'
+          id='CustomerEmail'
+          autocomplete='email'
+          autocorrect='off'
+          autocapitalize='off'
+          {% if form.errors contains 'form' %}
+            aria-invalid='true'
+          {% endif %}
+          placeholder='{{ 'customer.login_page.email' | t }}'
+        >
+        <label for='CustomerEmail'>
+          {{ 'customer.login_page.email' | t }}
+        </label>
+      </div>
+
+      {%- if form.password_needed -%}
+        <div class='field'>
+          <input
+            type='password'
+            value=''
+            name='customer[password]'
+            id='CustomerPassword'
+            autocomplete='current-password'
+            {% if form.errors contains 'form' %}
+              aria-invalid='true'
+            {% endif %}
+            placeholder='{{ 'customer.login_page.password' | t }}'
+          >
+          <label for='CustomerPassword'>
+            {{ 'customer.login_page.password' | t }}
+          </label>
+        </div>
+      {%- endif -%}
+    {%- endform -%}
+  </div>
+
+  <!-- OTP Login Form -->
+  <div id='otpLoginForm'>
+    <div class='field'>
+      <input
+        type='email'
+        name='customer[email]'
+        id='otpCustomerEmail'
+        autocomplete='email'
+        autocorrect='off'
+        autocapitalize='off'
+        placeholder='{{ 'customer.login_page.email' | t }}'
+      >
+      <label for='otpCustomerEmail'>
+        {{ 'customer.login_page.email' | t }}
+      </label>
+    </div>
+
+    <div
+      id='otpSection'
+      class='field'
+      style='display: none;'
+    >
+      <input
+        type='text'
+        id='otpInput'
+        name='otp'
+        maxlength='6'
+        placeholder='Enter OTP'
+        pattern='[0-9]*'
+      >
+      <label for='otpInput'>Enter OTP</label>
+      <div id='otpTimer' style='margin-top: 5px; font-size: 0.9em;'></div>
+    </div>
+
+    <button type='button' id='sendOtpBtn'>Send OTP</button>
+    <button
+      type='button'
+      id='verifyOtpBtn'
+      style='display: none;'
+    >
+      Verify & Login
+    </button>
+    <button
+      type='button'
+      id='loginOtpBtn'
+      style='display: none;'
+    >
+      Login
+    </button>
+  </div>
+</div>
+
+<!-- notification container -->
+<div id='notificationContainer' />
+<!-- form error container -->
+<div id='formErrors' style='display: none;' data-errors='{{ error_message }}' />
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // DOM elements
+    const otpForm = document.getElementById('otpForm');
+    const emailInput = document.getElementById('otpCustomerEmail');
+    const otpSection = document.getElementById('otpSection');
+    const otpInput = document.getElementById('otpInput');
+    const sendOtpBtn = document.getElementById('sendOtpBtn');
+    const verifyOtpBtn = document.getElementById('verifyOtpBtn');
+    const loginOtpBtn = document.getElementById('loginOtpBtn');
+    const otpTimer = document.getElementById('otpTimer');
+    const notificationContainer = document.getElementById('notificationContainer');
+    const customerEmail = document.getElementById('CustomerEmail');
+    const customerPassword = document.getElementById('CustomerPassword');
+    const customerLoginForm = document.forms['customer_login'];
+
+    // state
+    let otpCountdown;
+
+    /// utility functions
+    // display notification toast
+    function showNotification(message, type = 'info') {
+      const notification = document.createElement('div');
+      notification.className = `custom-notification ${type}`;
+      notification.textContent = message;
+
+      notificationContainer.appendChild(notification);
+      notification.offsetHeight; // trigger reflow for animation (to ensure element init properly in old browsers)
+      notification.classList.add('show');
+
+      setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => {
+          notificationContainer.removeChild(notification);
+        }, 300);
+      }, 3000);
+    }
+
+    // OTP timer Management
+    function startOtpTimer(duration) {
+      let timer = duration;
+      clearInterval(otpCountdown);
+
+      otpCountdown = setInterval(() => {
+        const minutes = Math.floor(timer / 60);
+        const seconds = timer % 60;
+        otpTimer.textContent = `Resend OTP in ${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        if (--timer < 0) {
+          clearInterval(otpCountdown);
+          otpTimer.textContent = '';
+          sendOtpBtn.style.display = 'block';
+          sendOtpBtn.textContent = 'Resend OTP';
+        }
+      }, 1000);
+    }
+
+    // OTP section UI state update
+    function updateUIAfterOtpSent(isExistingUser) {
+      // hide send OTP button
+      sendOtpBtn.style.display = 'none';
+      // show otp section
+      otpSection.style.display = 'block';
+
+      if (isExistingUser) {
+        // if existing user, show otp login
+        loginOtpBtn.style.display = 'block';
+        verifyOtpBtn.style.display = 'none';
+      } else {
+        // else show verify otp button
+        loginOtpBtn.style.display = 'none';
+        verifyOtpBtn.style.display = 'block';
+      }
+    }
+
+    // reset UI
+    function resetUIState() {
+      otpSection.style.display = 'none';
+      sendOtpBtn.style.display = 'block';
+      verifyOtpBtn.style.display = 'none';
+      loginOtpBtn.style.display = 'none';
+      otpInput.value = '';
+      clearInterval(otpCountdown);
+      otpTimer.textContent = '';
+    }
+    /// utility functions
+
+    /// event handlers
+    // send OTP
+    async function handleSendOtp() {
+      const email = emailInput.value;
+
+      if (!email) {
+        showNotification('Please enter your email address', 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch('{{ settings.api_base_url }}/otp/register-or-login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ login_account: email }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Failed to send OTP');
+        }
+
+        const responseData = await response.json();
+
+        updateUIAfterOtpSent(responseData.data.is_login);
+        startOtpTimer(120);
+        showNotification('OTP has been sent to your email address', 'success');
+      } catch (error) {
+        showNotification('Failed to send OTP. Please try again.', 'error');
+      }
+    }
+
+    // verify OTP
+    async function handleVerifyOtp() {
+      const email = emailInput.value;
+      const otp = otpInput.value;
+
+      if (!otp) {
+        showNotification('Please enter the OTP', 'error');
+        return;
+      }
+
+      try {
+        // verify register OTP
+        const verifyOtpResponse = await fetch('{{ settings.api_base_url }}/otp/verify-registration-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ register_account: email, otp: otp }),
+        });
+
+        if (!verifyOtpResponse.ok) {
+          throw new Error('Invalid OTP');
+        }
+        const verifyOtpResponseData = await verifyOtpResponse.json();
+        console.log('verify otp', verifyOtpResponseData);
+
+        // if otp verified, create user using email
+        const createUserResponse = await fetch('{{ settings.api_base_url }}/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ new_email: email, username: email }),
+        });
+
+        if (!createUserResponse.ok) {
+          throw new Error('Failed to create user');
+        }
+
+        const responseData = await createUserResponse.json();
+        console.log('create user', responseData);
+
+        if (responseData.data.token) {
+          const { type, token } = responseData.data.token;
+          // set backend token as cookie
+          document.cookie = `authToken=${token}; path=/;`;
+
+          // find shopify profile and set credentials
+          const shopifyProfile = responseData.data.user.profiles.find((profile) => profile.social_type === 'shopify');
+
+          if (!shopifyProfile) {
+            throw new Error('Shopify profile not found');
+          }
+
+          showNotification('Verification successful! Redirecting...', 'success');
+          // submit password login form
+          customerEmail.value = shopifyProfile.email;
+          customerPassword.value = shopifyProfile.password;
+          customerLoginForm.submit();
+        } else {
+          throw new Error('Invalid response from server');
+        }
+      } catch (error) {
+        let errorMessage = 'An unexpected error occurred';
+
+        switch (error.message) {
+          case 'Invalid OTP':
+            errorMessage = 'Invalid OTP. Please try again.';
+            break;
+          case 'Shopify profile not found':
+            errorMessage = 'No Shopify account found. Please contact support.';
+            break;
+          default:
+            errorMessage = 'Server error. Please try again later.';
+            break;
+        }
+
+        resetUIState();
+        showNotification(errorMessage, 'error');
+      }
+    }
+
+    // OTP login
+    async function handleLoginOtp() {
+      const email = emailInput.value;
+      const otp = otpInput.value;
+
+      if (!otp) {
+        showNotification('Please enter the OTP', 'error');
+        return;
+      }
+
+      try {
+        const response = await fetch('{{ settings.api_base_url }}/login-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ login_account: email, otp: otp }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Invalid OTP');
+        }
+
+        const responseData = await response.json();
+
+        if (responseData.data.token) {
+          const { type, token } = responseData.data.token;
+          // set backend token as cookie
+          document.cookie = `authToken=${token}; path=/;`;
+
+          // find shopify profile and set credentials
+          const shopifyProfile = responseData.data.user.profiles.find((profile) => profile.social_type === 'shopify');
+
+          if (!shopifyProfile) {
+            throw new Error('Shopify profile not found');
+          }
+
+          showNotification('Login successful! Redirecting...', 'success');
+          // submit password login form
+          customerEmail.value = shopifyProfile.email;
+          customerPassword.value = shopifyProfile.password;
+          customerLoginForm.submit();
+        } else {
+          throw new Error('Invalid response from server');
+        }
+      } catch (error) {
+        let errorMessage = 'An unexpected error occurred';
+
+        switch (error.message) {
+          case 'Invalid OTP':
+            errorMessage = 'Invalid OTP. Please try again.';
+            break;
+          case 'Shopify profile not found':
+            errorMessage = 'No Shopify account found. Please contact support.';
+            break;
+          case 'Invalid response from server':
+            errorMessage = 'Server error. Please try again later.';
+            break;
+        }
+
+        resetUIState();
+        showNotification(errorMessage, 'error');
+      }
+    }
+    /// event handlers
+
+    /// event listeners
+    sendOtpBtn.addEventListener('click', handleSendOtp);
+    verifyOtpBtn.addEventListener('click', handleVerifyOtp);
+    loginOtpBtn.addEventListener('click', handleLoginOtp);
+    /// event listeners
+
+    // check for password form errors from data attribute
+    const formErrorsContainer = document.getElementById('formErrors');
+    if (formErrorsContainer && formErrorsContainer.dataset.errors) {
+      showNotification(formErrorsContainer.dataset.errors, 'error');
+      resetUIState();
+    }
+  });
+</script>
