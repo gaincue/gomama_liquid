@@ -12,38 +12,38 @@
     "image-with-text": {
       "type": "image-with-text",
       "blocks": {
-        "heading": {
+        "heading_FnUNdy": {
           "type": "heading",
           "settings": {
             "heading": "Browse our latest products",
-            "heading_size": "h1"
+            "heading_size": "h2"
           }
         },
-        "button": {
+        "button_QcwnFk": {
           "type": "button",
           "settings": {
-            "button_label": "Shop now",
+            "button_label": "Shop now!",
             "button_link": "shopify://collections/all",
             "button_style_secondary": false
           }
         }
       },
       "block_order": [
-        "heading",
-        "button"
+        "heading_FnUNdy",
+        "button_QcwnFk"
       ],
       "settings": {
-        "image": "shopify://shop_images/IMG_7818.jpg",
+        "image": "shopify://shop_images/E-commerce_Banner_750_x_478_px_2.png",
         "height": "adapt",
         "desktop_image_width": "large",
-        "layout": "text_first",
+        "layout": "image_first",
         "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "content_layout": "overlap",
+        "desktop_content_alignment": "center",
+        "content_layout": "no-overlap",
         "section_color_scheme": "scheme-1",
-        "color_scheme": "scheme-3",
+        "color_scheme": "scheme-5",
         "image_behavior": "none",
-        "mobile_content_alignment": "left",
+        "mobile_content_alignment": "center",
         "padding_top": 0,
         "padding_bottom": 0
       }

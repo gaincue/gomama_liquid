@@ -9,7 +9,8 @@
  */
 {
   "current": {
-    "logo_width": 70,
+    "logo": "shopify://shop_images/GOM_Logo_FINAL_HL-03.png",
+    "logo_width": 200,
     "type_header_font": "poppins_n5",
     "heading_scale": 120,
     "type_body_font": "poppins_n4",
@@ -179,7 +180,7 @@
       "scheme-4": {
         "settings": {
           "background": "#742a83",
-          "background_gradient": "linear-gradient(146deg, rgba(116, 42, 131, 1) 8%, rgba(255, 255, 255, 1) 67%, rgba(116, 42, 131, 1) 83%)",
+          "background_gradient": "linear-gradient(243deg, rgba(116, 42, 131, 0.75), rgba(116, 42, 131, 0.09) 90%)",
           "text": "#ffffff",
           "button": "#fdfbf7",
           "button_label": "#f6d6f8",
@@ -195,6 +196,28 @@
           "button": "#fdfbf7",
           "button_label": "#5e3653",
           "secondary_button_label": "#fdfbf7",
+          "shadow": "#2e2a39"
+        }
+      },
+      "scheme-c1e26928-fb44-4d85-9fad-e1dde574468f": {
+        "settings": {
+          "background": "#edd6f8",
+          "background_gradient": "linear-gradient(274deg, rgba(237, 214, 248, 1), rgba(228, 211, 190, 1) 50%, rgba(255, 252, 247, 0.01) 84%, rgba(243, 216, 248, 0.59) 100%)",
+          "text": "#000000",
+          "button": "#742a83",
+          "button_label": "#fdfbf7",
+          "secondary_button_label": "#2e2a39",
+          "shadow": "#2e2a39"
+        }
+      },
+      "scheme-a5b9b9b4-13fe-4609-a074-e798239c0d9e": {
+        "settings": {
+          "background": "#edd6f8",
+          "background_gradient": "linear-gradient(90deg, rgba(237, 214, 248, 1), rgba(241, 235, 226, 1) 100%)",
+          "text": "#121212",
+          "button": "#9b046f",
+          "button_label": "#fdfbf7",
+          "secondary_button_label": "#2e2a39",
           "shadow": "#2e2a39"
         }
       }

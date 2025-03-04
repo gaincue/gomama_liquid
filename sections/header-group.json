@@ -17,7 +17,7 @@
         "announcement-bar-0": {
           "type": "announcement",
           "settings": {
-            "text": "Welcome to our store",
+            "text": "Your One-Stop Shop for Mom & Baby",
             "link": ""
           }
         }
@@ -43,7 +43,7 @@
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": false,
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-c1e26928-fb44-4d85-9fad-e1dde574468f",
         "menu_color_scheme": "scheme-1",
         "enable_country_selector": true,
         "enable_language_selector": true,
