@@ -12,29 +12,10 @@
     "slideshow_N3P83V": {
       "type": "slideshow",
       "blocks": {
-        "slide_6LWKzc": {
-          "type": "slide",
-          "disabled": true,
-          "settings": {
-            "image": "shopify://shop_images/E-commerce_Slideshow_Banner_1600_x_500_px_3_d176dbb8-b829-411a-8480-d180bb6a95d0.jpg",
-            "heading": "",
-            "heading_size": "h1",
-            "subheading": "",
-            "button_label": "Shop here!",
-            "link": "",
-            "button_style_secondary": false,
-            "box_align": "middle-center",
-            "show_text_box": true,
-            "text_alignment": "center",
-            "image_overlay_opacity": 0,
-            "color_scheme": "scheme-3",
-            "text_alignment_mobile": "center"
-          }
-        },
         "slide_WXJfgF": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/E-commerce_Banner_750_x_478_px_1000_x_1600_px.jpg",
+            "image": "shopify://shop_images/E-commerce_Slideshow_Banner_1600_x_500_px_7.jpg",
             "heading": "",
             "heading_size": "h1",
             "subheading": "",
@@ -52,7 +33,7 @@
         "slide_kpaVFW": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/E-commerce_Slideshow_Banner_1600_x_500_px_5.jpg",
+            "image": "shopify://shop_images/E-commerce_Slideshow_Banner_1600_x_500_px_8.jpg",
             "heading": "",
             "heading_size": "h1",
             "subheading": "",
@@ -69,11 +50,69 @@
         }
       },
       "block_order": [
-        "slide_6LWKzc",
         "slide_WXJfgF",
         "slide_kpaVFW"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "@media screen and (max-width: 750px) {.banner, slideshow-component {display: none; }}"
+      ],
+      "settings": {
+        "layout": "full_bleed",
+        "slide_height": "small",
+        "slider_visual": "dots",
+        "auto_rotate": false,
+        "change_slides_speed": 3,
+        "image_behavior": "none",
+        "show_text_below": false,
+        "accessibility_info": ""
+      }
+    },
+    "slideshow_jpJpkw": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_rBj8mC": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/E-commerce_Banner_750_x_478_px_1000_x_1600_px_4cf7aa78-7818-49f2-8f7a-82e9615e8cc0.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_VL4wQj": {
+          "type": "slide",
+          "settings": {
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "",
+            "text_alignment_mobile": "center"
+          }
+        }
+      },
+      "block_order": [
+        "slide_rBj8mC",
+        "slide_VL4wQj"
+      ],
+      "custom_css": [
+        "@media screen and (min-width: 750px) {.banner, slideshow-component {display: none; }}"
+      ],
       "settings": {
         "layout": "full_bleed",
         "slide_height": "medium",
@@ -82,11 +121,12 @@
         "change_slides_speed": 3,
         "image_behavior": "none",
         "show_text_below": false,
-        "accessibility_info": ""
+        "accessibility_info": "Slideshow about our brand"
       }
     }
   },
   "order": [
-    "slideshow_N3P83V"
+    "slideshow_N3P83V",
+    "slideshow_jpJpkw"
   ]
 }
