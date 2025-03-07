@@ -73,7 +73,7 @@
         "slide_rBj8mC": {
           "type": "slide",
           "settings": {
-            "image": "shopify://shop_images/E-commerce_Banner_750_x_478_px_1000_x_1600_px_4cf7aa78-7818-49f2-8f7a-82e9615e8cc0.jpg",
+            "image": "shopify://shop_images/E-commerce_Banner_800_x_800_px_1.jpg",
             "heading": "",
             "heading_size": "h1",
             "subheading": "",
@@ -91,6 +91,7 @@
         "slide_VL4wQj": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/E-commerce_Banner_800_x_800_px_2.jpg",
             "heading": "",
             "heading_size": "h1",
             "subheading": "",
