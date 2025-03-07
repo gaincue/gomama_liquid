@@ -9,76 +9,84 @@
  */
 {
   "sections": {
-    "image-with-text": {
-      "type": "image-with-text",
+    "slideshow_N3P83V": {
+      "type": "slideshow",
       "blocks": {
-        "heading_FnUNdy": {
-          "type": "heading",
+        "slide_6LWKzc": {
+          "type": "slide",
+          "disabled": true,
           "settings": {
-            "heading": "Browse our latest products",
-            "heading_size": "h2"
+            "image": "shopify://shop_images/E-commerce_Slideshow_Banner_1600_x_500_px_3_d176dbb8-b829-411a-8480-d180bb6a95d0.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Shop here!",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": true,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-3",
+            "text_alignment_mobile": "center"
           }
         },
-        "button_QcwnFk": {
-          "type": "button",
+        "slide_WXJfgF": {
+          "type": "slide",
           "settings": {
-            "button_label": "Shop now!",
-            "button_link": "shopify://collections/all",
-            "button_style_secondary": false
+            "image": "shopify://shop_images/E-commerce_Slideshow_Banner_1600_x_500_px_4.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
+          }
+        },
+        "slide_kpaVFW": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/E-commerce_Slideshow_Banner_1600_x_500_px_5.jpg",
+            "heading": "",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "",
+            "link": "",
+            "button_style_secondary": false,
+            "box_align": "middle-center",
+            "show_text_box": false,
+            "text_alignment": "center",
+            "image_overlay_opacity": 0,
+            "color_scheme": "scheme-1",
+            "text_alignment_mobile": "center"
           }
         }
       },
       "block_order": [
-        "heading_FnUNdy",
-        "button_QcwnFk"
+        "slide_6LWKzc",
+        "slide_WXJfgF",
+        "slide_kpaVFW"
       ],
+      "custom_css": [],
       "settings": {
-        "image": "shopify://shop_images/E-commerce_Banner_750_x_478_px_2.png",
-        "height": "adapt",
-        "desktop_image_width": "large",
-        "layout": "image_first",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "center",
-        "content_layout": "no-overlap",
-        "section_color_scheme": "scheme-1",
-        "color_scheme": "scheme-5",
+        "layout": "full_bleed",
+        "slide_height": "medium",
+        "slider_visual": "dots",
+        "auto_rotate": false,
+        "change_slides_speed": 3,
         "image_behavior": "none",
-        "mobile_content_alignment": "center",
-        "padding_top": 0,
-        "padding_bottom": 0
-      }
-    },
-    "featured-collection": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "collection": "all",
-        "products_to_show": 10,
-        "columns_desktop": 5,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "color_scheme": "scheme-1",
-        "image_ratio": "square",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": true,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": true,
-        "padding_top": 56,
-        "padding_bottom": 68
+        "show_text_below": false,
+        "accessibility_info": ""
       }
     }
   },
   "order": [
-    "image-with-text",
-    "featured-collection"
+    "slideshow_N3P83V"
   ]
 }
