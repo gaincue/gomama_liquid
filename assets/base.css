@@ -3595,3 +3595,8 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+@media screen and (min-width: 1150px){
+.header__primary-nav {
+    column-gap: 1.25rem !important;
+}
+}
