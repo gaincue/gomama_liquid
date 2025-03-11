@@ -46,6 +46,34 @@
     },
     "footer": {
       "type": "footer",
+      "blocks": {
+        "image_jVQyj6": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/GOM_Logo_FINAL_HL-03_963722bd-4b78-483c-bef8-2ab75cd0fdf9.png",
+            "image_width": 275,
+            "alignment": "right"
+          }
+        },
+        "text_xmNGiY": {
+          "type": "text",
+          "settings": {
+            "heading": "contact us",
+            "subtext": "<h5>📞+65 8079 8417</h5><h5>✉️ hello@gomama.com.sg<br/><br/>📍71 Ayer Rajah Crescent #01-12/14, Singapore 139951</h5><h5>UEN number: 202108084H</h5>"
+          }
+        },
+        "brand_information_LR4BaA": {
+          "type": "brand_information",
+          "settings": {
+            "show_social": true
+          }
+        }
+      },
+      "block_order": [
+        "image_jVQyj6",
+        "text_xmNGiY",
+        "brand_information_LR4BaA"
+      ],
       "custom_css": [],
       "settings": {
         "color_scheme": "scheme-1",
