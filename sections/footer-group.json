@@ -61,11 +61,19 @@
             "heading": "contact us",
             "subtext": "<h5>📞+65 8079 8417</h5><h5>✉️ hello@gomama.com.sg<br/><br/>📍71 Ayer Rajah Crescent #01-12/14, Singapore 139951</h5><h5>UEN number: 202108084H</h5>"
           }
+        },
+        "link_list_mQrPRG": {
+          "type": "link_list",
+          "settings": {
+            "heading": "quick links",
+            "menu": "footer"
+          }
         }
       },
       "block_order": [
         "image_jVQyj6",
-        "text_xmNGiY"
+        "text_xmNGiY",
+        "link_list_mQrPRG"
       ],
       "custom_css": [],
       "settings": {
